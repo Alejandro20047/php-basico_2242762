@@ -17,47 +17,43 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//funcion anonima
+//funcion anonima 
 //callback
-
-Route::get('variables', function(){
-    //definir una variable
-    //en php
-    $mensaje = 20;
-    //funcion var_dump: analizar una variable
-    //muestra tipo de dato y valor +
-    print_r($mensaje);
-    echo"<hr/>";
-    $mensaje = "Kevin Bello";
-    var_dump($mensaje);
-
-
-
-
+Route :: get('variables' , function(){
+  //arreglo: estructura de datos
+  $estudiantes = [ 'AN' => 'ana',
+                   'MA' => 'maria',
+                   'JO' => 'jorge'];
+    
+  echo "<pre>";
+  var_dump($estudiantes);
+  echo "</pre>";
 });
 
-Route::get('arreglos', function () {
-    //Arreglo: estructura de datos
-    $estudiantes = [ 'AN' => "Ana",
-                     'MA' => "Maria",
-                     'Jo' =>"Jorge"];
-    echo"<pre>";
-    var_dump($estudiantes);
-    echo"</pre>";
+Route:: get("paises",function(){
+
+    $paises= [ "Colombia" => [
+                               "capital"=> "Bogota",
+                               "moneda" => "Peso",
+                               "poblacion" => 51
+                             ],
+                "Peru" => [
+                               "capital"=> "Lima",
+                               "moneda" => "sol",
+                               "poblacion" => 32.8
+
+                             ],
+                "Paraguay" =>[
+                                "capital"=> "asuncion",
+                                "moneda" => "Guara",
+                                "poblacion" => 7.3
+                    ]
+                ];
+
+    $suma = 0;
+    foreach ($paises as $nombre => $pais){
+        $suma += $pais ["poblacion"];
+    }
+    echo "La suma de los paises es $suma";
 });
 
-Route::get('paises', function () {
-
-    $paises= ['colombia'=> ['capital'=> 'Bogota','moneda'=>'Peso','poblacion'=> 51],
-              'peru' =>['capital' =>'Lima', 'moneda' => 'Sol', 'poblacion'=> 32 ],
-              'argentina' =>['capital' =>'Buenos Aires', 'moneda' => 'Peso argentino', 'poblacion'=> 44 ]
-            ];
-
-
-
-// llamar a una vista
-//con los datos de paises
-//alias: nombre con el cual
-//se van a reconocer los datos en la vista
-return view('paises')-> with ("naciones", $paises);
-});
