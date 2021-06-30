@@ -13,24 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('variables', function(){
+    //definir una vatiable
+    $mensaje = 20;
+    //funcion var_dump:analizar una variable
+    //muestra tipo de dato y valor
+    print_r($mensaje);
+    echo "<hr/>";
+    $mensaje = "sara ariza";
+    var_dump($mensaje);
+ });
+
+   Route::get('arreglos', function () {
+       //Arreglo: estructura de datos
+       $estudiante = ['AN' => "Ana",
+                      'MA' => "Maria",
+                       'JO' =>'jorge'];
+       echo "<pre>";
+       var_dump($estudiante);
+       echo "<pre>";
 });
 
-//funcion anonima 
-//callback
-Route :: get('variables' , function(){
-  //arreglo: estructura de datos
-  $estudiantes = [ 'AN' => 'ana',
-                   'MA' => 'maria',
-                   'JO' => 'jorge'];
-    
-  echo "<pre>";
-  var_dump($estudiantes);
-  echo "</pre>";
-});
-
-Route:: get("paises",function(){
+   Route:: get("paises",function(){
 
     $paises= [ "Colombia" => [
                                "capital"=> "Bogota",
@@ -45,15 +49,18 @@ Route:: get("paises",function(){
                              ],
                 "Paraguay" =>[
                                 "capital"=> "asuncion",
-                                "moneda" => "Guara",
+                                "moneda" => "Guarani",
                                 "poblacion" => 7.3
                     ]
                 ];
+       //llamar una vista
+       //con datos de paises
+       //se reconocen los datos
+       //     se reconocen los datos en la vista
+       return view('paises')->with("naciones", $paises);
 
-    $suma = 0;
-    foreach ($paises as $nombre => $pais){
-        $suma += $pais ["poblacion"];
-    }
-    echo "La suma de los paises es $suma";
 });
 
+Route::get('formulario_buscador' ,"MetabuscadorController@formulario_buscador" );
+
+Route::post('buscar', "MetabuscadorController@buscar");
